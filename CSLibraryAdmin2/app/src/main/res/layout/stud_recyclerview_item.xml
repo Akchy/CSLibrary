@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardview1"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    card_view:cardElevation="5dp"
+    android:layout_margin="5dp"
+    card_view:cardCornerRadius="10dp"
+    card_view:cardMaxElevation="5dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#115ede">
+
+
+        <TextView
+            android:id="@+id/SName"
+            android:layout_width="272dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="5dp"
+            android:text="Student Name"
+            android:textColor="#fff"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/Reg"
+            android:layout_width="272dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/SName"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="5dp"
+            android:text="Reg No"
+            android:textColor="#fff"
+            android:textSize="20dp" />
+
+
+
+
+        <Button
+            android:layout_width="70dp"
+            android:id="@+id/del"
+            android:layout_height="70dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/del"/>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

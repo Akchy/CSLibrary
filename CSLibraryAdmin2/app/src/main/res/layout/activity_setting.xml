@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:id="@+id/fine"
+        android:textColor="#000"
+        android:layout_margin="10dp"
+        android:text="Fine Amount"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_below="@+id/fine"
+            android:id="@+id/rel1"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:id="@+id/finedit"
+                    android:layout_weight="3"
+                    android:textColor="#000"
+                    android:layout_margin="10dp"
+                    android:inputType="number"/>
+
+                <Button
+                    android:id="@+id/setfine"
+                    android:background="@drawable/buttonr"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:paddingLeft="10dp"
+                    android:layout_margin="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_marginTop="20dp"
+                    android:onClick="SetFin"
+                    android:text="Set Fine" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:id="@+id/nosbooks"
+        android:layout_below="@+id/rel1"
+        android:textColor="#000"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:text="Boooks issued per Student"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_below="@+id/nosbooks"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:id="@+id/nosedit"
+                    android:layout_weight="3"
+                    android:textColor="#000"
+                    android:layout_margin="10dp"
+                    android:inputType="number"/>
+
+                <Button
+                    android:id="@+id/setno"
+                    android:background="@drawable/buttonr"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:paddingLeft="10dp"
+                    android:layout_margin="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_marginTop="20dp"
+                    android:onClick="SetNo"
+                    android:text="Set No." />
+
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout></ScrollView>
+</RelativeLayout>

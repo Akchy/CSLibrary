@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginTop="20dp"
+        android:hint="Enter Student Name Here"
+        android:inputType="textCapSentences|textAutoCorrect" />
+
+
+    <EditText
+        android:id="@+id/reg"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_below="@+id/name"
+        android:hint="Enter Reg No. Here"
+        android:inputType="textCapSentences|textAutoCorrect"/>
+
+
+    <Button
+        android:id="@+id/button"
+        android:background="@drawable/buttonr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reg"
+        android:textColor="#fff"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:onClick="btnInsert"
+        android:text="Add Student" />
+
+</RelativeLayout>

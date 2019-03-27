@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardview1"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    card_view:cardElevation="5dp"
+    android:layout_margin="5dp"
+    card_view:cardCornerRadius="10dp"
+    card_view:cardMaxElevation="5dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#115ede">
+
+
+        <TextView
+            android:id="@+id/Name"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="5dp"
+            android:text="Book Name"
+            android:textColor="#fff"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/Author"
+            android:layout_width="188dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Name"
+            android:paddingLeft="15dp"
+            android:paddingTop="5dp"
+            android:text="Author"
+            android:textColor="#fff"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/Sname"
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/down"
+            android:paddingLeft="2dp"
+            android:paddingTop="5dp"
+            android:text="Stud Name"
+            android:textColor="#fff"
+            android:textSize="20dp" />
+
+
+        <TextView
+            android:id="@+id/Date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Name"
+            android:layout_marginLeft="10dp"
+            android:paddingTop="5dp"
+            android:layout_marginRight="15dp"
+           android:text="Date"
+            android:paddingBottom="15dp"
+            android:layout_toLeftOf="@+id/down"
+            android:gravity="right"
+            android:textColor="#fff"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/down"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/down"/>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

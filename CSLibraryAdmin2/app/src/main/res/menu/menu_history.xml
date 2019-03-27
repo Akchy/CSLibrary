@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.drc.cslibraryadmin.History">
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="General History"
+        app:showAsAction="never" />
+</menu>
