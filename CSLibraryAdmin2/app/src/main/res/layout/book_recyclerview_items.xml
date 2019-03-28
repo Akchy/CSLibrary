@@ -9,12 +9,13 @@
     android:layout_margin="5dp"
     card_view:cardCornerRadius="10dp"
     card_view:cardMaxElevation="5dp"
+
     >
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#115ede">
+        android:background="#0097A7">
 
 
         <Button

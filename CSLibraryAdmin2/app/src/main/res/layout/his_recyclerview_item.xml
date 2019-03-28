@@ -14,7 +14,7 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#115ede">
+        android:background="#0097A7">
 
         <TextView
             android:id="@+id/Date"
