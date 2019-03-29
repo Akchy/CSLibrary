@@ -17,7 +17,7 @@
         <ImageView
             android:id="@+id/card_view_image"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="100dp"
             android:scaleType="centerInside"/>
 
         <TextView
