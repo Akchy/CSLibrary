@@ -116,6 +116,9 @@ public class MainActivity extends AppCompatActivity {
             libItemList.add(new LibRecyclerViewItem("Return", R.drawable.book4));
             libItemList.add(new LibRecyclerViewItem("Books", R.drawable.book7));
             libItemList.add(new LibRecyclerViewItem("Students", R.drawable.stud));
+            libItemList.add(new LibRecyclerViewItem("History", R.drawable.his));
+            libItemList.add(new LibRecyclerViewItem("Fine", R.drawable.std));
+            libItemList.add(new LibRecyclerViewItem("Settings", R.drawable.set));
 
         }
     }

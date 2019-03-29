@@ -62,6 +62,22 @@ public class LibRecyclerViewDataAdapter extends RecyclerView.Adapter<LibRecycler
                     Intent intent = new Intent(context, Return.class);
                     context.startActivity(intent);
                 }
+                if(name.equals("History")){
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, History.class);
+                    context.startActivity(intent);
+                }
+                if(name.equals("Fine")){
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, Fine.class);
+                    context.startActivity(intent);
+                }
+                if(name.equals("Settings")){
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, Setting.class);
+                    context.startActivity(intent);
+                }
+
             }
         });
 
