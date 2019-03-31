@@ -23,7 +23,7 @@ public class AboutUs extends AppCompatActivity {
                 " its share to this technology boom. The department currently offers both B.Tech and M.Tech degree courses in computer" +
                 " science and engineering stream. The academic excellence is reflected in the high placement record, the number of" +
                 " students gaining admission for higher studies in prestigious institutions and the number of papers published per year."+
-                "\n\nThis Application is developed By DRC\ndrcreations@gmail.com";
+                "\n\nThis Application is developed By DRC\ndrcreation18@gmail.com";
         //t1.setText(text);
 
 
