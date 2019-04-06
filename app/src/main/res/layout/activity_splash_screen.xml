@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="#ABD3CF">
+    android:background="#BBDEFB">
 
     <ImageView
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
     <ImageView
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/madebylow"
+        android:src="@drawable/madeby2"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="20dp"
         android:layout_alignParentEnd="true"

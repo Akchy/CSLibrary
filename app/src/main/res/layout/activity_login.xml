@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#BBDEFB"
+    tools:context="com.drc.cslibraryadmin.LoginActivity"
+
+    >
+
+    <ImageView
+        android:layout_width="197dp"
+        android:layout_height="250dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/img"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/uname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="61dp"
+        android:ems="10"
+        android:drawableLeft="@drawable/log1"
+        android:hint="Username"
+        android:textColor="#006064"
+        android:inputType="textPersonName"
+        android:minHeight="26dp"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/uname"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:drawableLeft="@drawable/log2"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColor="#006064"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/b2"
+        android:layout_width="138dp"
+        android:layout_height="65dp"
+        android:layout_below="@+id/pass"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:layout_marginBottom="172dp"
+        android:background="@drawable/buttonr"
+        android:text="Login"
+        android:textColor="@color/White"
+        android:textSize="20dp" />
+
+
+
+
+
+
+</RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
