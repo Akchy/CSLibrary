@@ -1,6 +1,8 @@
 package com.drc.cslibraryadmin;
 
 import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -34,43 +36,48 @@ public class LoginActivity extends AppCompatActivity {
 
 
         database = FirebaseDatabase.getInstance();
-        ref = database.getReference("users");
+
+
 
 
         log.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                ref.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        long n= dataSnapshot.getChildrenCount();
-                        Toast.makeText(getApplicationContext(),""+n,Toast.LENGTH_SHORT).show();
-                        List<String> namelist0 = new ArrayList<>();
-                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()){
-                            namelist0.add(postSnapshot.getKey().toString());
-                        }
-                        unamelist=namelist0;
+                String userName=uname.getText().toString();
+                String passU=pass.getText().toString();
 
-                    }
+                if(userName.isEmpty() || passU.isEmpty()){
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-
-                if(uname.getText().toString().equals("drc") && pass.getText().toString().equals("drc")){
-
-
-                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(i);
-
-                    // close this activity
-                    finish();
+                    Toast.makeText(getApplicationContext(), "Username & Password field cannot be empty", Toast.LENGTH_SHORT).show();
                 }else {
-                  //  Toast.makeText(getApplicationContext(),"Invalid Username or Password",Toast.LENGTH_SHORT).show();
+                    ref = database.getReference("users");
+                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.hasChild(userName)) {
+                                String rpass = dataSnapshot.child(userName).child("pass").getValue(String.class);
+                                if (passU.equals(rpass)) {
+                                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                                    startActivity(i);
+
+                                    // close this activity
+                                    finish();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Invalid Password", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            else{
+                                Toast.makeText(getApplicationContext(), "Invalid Username", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
                 }
 
             }
