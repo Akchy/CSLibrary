@@ -56,9 +56,6 @@ public class AddBook extends AppCompatActivity {
         user = new NewBook();
         id = bookid.getText().toString();
         setTitle("Add Book");
-
-
-
         namelist();
         idlist();
 
