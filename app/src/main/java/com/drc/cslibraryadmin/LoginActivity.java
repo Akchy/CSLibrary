@@ -1,5 +1,6 @@
 package com.drc.cslibraryadmin;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -25,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     DatabaseReference ref,id_ref;
     Button log;
     public List<String> unamelist = new ArrayList<>();
+    ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +46,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                progressDialog = new ProgressDialog(LoginActivity.this);
+
+                // Setting up message in Progress dialog.
+                progressDialog.setMessage("Loading Data.\nConnect to your Internet");
+
+                // Showing progress dialog.
+                progressDialog.show();
                 String userName=uname.getText().toString();
                 String passU=pass.getText().toString();
 
@@ -65,17 +74,20 @@ public class LoginActivity extends AppCompatActivity {
                                     finish();
                                 } else {
                                     Toast.makeText(getApplicationContext(), "Invalid Password", Toast.LENGTH_SHORT).show();
+                                    progressDialog.dismiss();
                                 }
                             }
                             else{
                                 Toast.makeText(getApplicationContext(), "Invalid Username", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+
                             }
 
                         }
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-
+                            progressDialog.dismiss();
                         }
                     });
                 }
