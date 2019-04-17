@@ -21,6 +21,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +42,7 @@ public class StudList extends AppCompatActivity implements SearchView.OnQueryTex
         // Creating Progress dialog
         ProgressDialog progressDialog;
 
+        String details[];
 
 
 // Creating List of ImageUploadInfo class.
@@ -84,6 +88,23 @@ public List<NewStud> list1 = new ArrayList<>();
     // The path is already defined in MainActivity.
     databaseReference = FirebaseDatabase.getInstance().getReference("Stud");
 
+    try {
+        FileInputStream fstream;
+        fstream = openFileInput("user_details");
+        StringBuffer sbuffer = new StringBuffer();
+        int i;
+        while ((i = fstream.read())!= -1){
+            sbuffer.append((char)i);
+        }
+        fstream.close();
+        details = sbuffer.toString().split("\n");
+
+    } catch (FileNotFoundException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
 
     // Adding Add Value Event Listener to databaseReference.
     databaseReference.addValueEventListener(new ValueEventListener() {
@@ -95,6 +116,7 @@ public List<NewStud> list1 = new ArrayList<>();
             for (DataSnapshot postSnapshot : snapshot.getChildren()) {
 
                 NewStud imageUploadInfo = postSnapshot.getValue(NewStud.class);
+                imageUploadInfo.setUser(details[0]);
 
                 list.add(imageUploadInfo);
             }

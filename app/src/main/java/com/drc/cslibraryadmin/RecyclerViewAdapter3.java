@@ -22,6 +22,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,6 +42,8 @@ public class RecyclerViewAdapter3 extends RecyclerView.Adapter<RecyclerViewAdapt
 
     Context context;
     List<NewBook> MainImageUploadInfoList;
+    DatabaseReference databaseReference,refb;
+    int value;
 
     String id,ids;
     StringBuilder tot = new
@@ -110,13 +115,45 @@ public class RecyclerViewAdapter3 extends RecyclerView.Adapter<RecyclerViewAdapt
               tot = new
                         StringBuilder("");
                 all_id = new
-                        StringBuilder("");
+                StringBuilder("");
+
+
+                //aassasas
+                databaseReference = FirebaseDatabase.getInstance().getReference("Book").child(holder.Name.getText().toString() + " by " + holder.fees.getText().toString())
+                .child("IDs");
+
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+
+                        for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+
+                            Toast.makeText(context,postSnapshot.toString(),Toast.LENGTH_SHORT).show();
+                            value = Integer.parseInt(postSnapshot.getKey());
+                        }
+
+
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                        // Hiding the progress dialog.
+
+
+                    }
+                });
+
+
+
+               //asasaas
+
 
               id_ref =FirebaseDatabase.getInstance().getReference("ID");
                 id_ref.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         flag=0;
+
 
 
                         if (once < 1) {
@@ -188,18 +225,22 @@ public class RecyclerViewAdapter3 extends RecyclerView.Adapter<RecyclerViewAdapt
                                         exist_count = Integer.parseInt(UploadInfo.getQuan());
                                         FirebaseDatabase.getInstance().getReference("Book").child(holder.Name.getText().toString() + " by " + holder.fees.getText().toString()).child("quan").setValue(String.valueOf(exist_count + c));
                                         FirebaseDatabase.getInstance().getReference("Book").child(holder.Name.getText().toString() + " by " + holder.fees.getText().toString()).child("avail").setValue(String.valueOf(exist_count + c));
-                                        for (int i = 0, j = exist_count; i < c; i++, j++) {
+                                        for (int i = 0, j = value+1; i < c; i++, j++) {
                                             FirebaseDatabase.getInstance().getReference("Book").child(holder.Name.getText().toString() + " by " + holder.fees.getText().toString()).child("IDs").child(String.valueOf(j)).setValue(arrOfStr[i]);
                                             FirebaseDatabase.getInstance().getReference("ID").child(arrOfStr[i]).child("parent").setValue(holder.Name.getText().toString() + " by " + holder.fees.getText().toString());
                                             FirebaseDatabase.getInstance().getReference("ID").child(arrOfStr[i]).child("return").setValue("Nill");
                                             FirebaseDatabase.getInstance().getReference("ID").child(arrOfStr[i]).child("studID").setValue("Nill");
+                                            FirebaseDatabase.getInstance().getReference("ID").child(arrOfStr[i]).child("key").setValue(String.valueOf(j));
                                         }
+
+
                                         SimpleDateFormat sdftime = new SimpleDateFormat("HH:mm:ss");
                                         SimpleDateFormat sdfdate = new SimpleDateFormat("dd-MM-yyyy");
                                         String currentTime = sdftime.format(new Date());
                                         String CurrentDate = sdfdate.format(new Date());
                                         FirebaseDatabase.getInstance().getReference("History").child(CurrentDate).child(currentTime)
-                                                .setValue("Added ID: "+ Arrays.toString(arrOfStr) +" of Book: "+holder.Name.getText().toString() );
+                                                .setValue("Added ID: "+ Arrays.toString(arrOfStr) +" of Book: "+holder.Name.getText().toString()
+                                                 + " by " + UploadInfo.getUser());
                                         Toast.makeText(context, "Saved Sucessfully", Toast.LENGTH_SHORT).show();
 
                                     }
@@ -232,12 +273,16 @@ public class RecyclerViewAdapter3 extends RecyclerView.Adapter<RecyclerViewAdapt
 
                             //               Toast.makeText(context,"2",Toast.LENGTH_SHORT).show();
                         once++;
+
+
                         }
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                     }
                 });
+
+
 
 
 

@@ -22,6 +22,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,10 +40,11 @@ public class Issue extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference ref,ref1,refb;
     int x=0,x1;
-    String name,bookname,bookauthor,studname;
+    String name,bookname,bookauthor,studname, details[];
     int a,x2=5;
     TextView bn,ba,sn;
     int bookavail;
+
 
     private Button scan_btn,scan_btn2,button;
     int mode=0;
@@ -322,13 +326,31 @@ public class Issue extends AppCompatActivity {
                             ref.child(id).child("return").setValue(newDate);
                             x++;
 
+                             try {
+                                 FileInputStream fstream;
+                                 fstream = openFileInput("user_details");
+                                 StringBuffer sbuffer = new StringBuffer();
+                                 int i;
+                                 while ((i = fstream.read())!= -1){
+                                     sbuffer.append((char)i);
+                                 }
+                                 fstream.close();
+                                  details = sbuffer.toString().split("\n");
+                                 Toast.makeText(Issue.this,
+                                         "Name: "+ details[0], Toast.LENGTH_SHORT).show();
+                             } catch (FileNotFoundException e) {
+                                 e.printStackTrace();
+                             } catch (IOException e) {
+                                 e.printStackTrace();
+                             }
+
                              SimpleDateFormat sdftime = new SimpleDateFormat("HH:mm:ss");
                              SimpleDateFormat sdfdate = new SimpleDateFormat("dd-MM-yyyy");
                              String currentTime = sdftime.format(new Date());
                              String CurrentDate = sdfdate.format(new Date());
                              FirebaseDatabase.getInstance().getReference("ID").child(id).child("History").child(CurrentDate).child(currentTime)
                                      .setValue("Issued Book: "+ dataSnapshot.child(id).child("parent").getValue().toString() + " of ID: " +
-                                             id + " to Student ID: "+studno.getText().toString());
+                                             id + " to Student ID: "+studno.getText().toString() + " by " + details[0]);
 
                             ref1.child(studno.getText().toString()).child("due").setValue("1");
                             Toast.makeText(Issue.this,"Book Issued",Toast.LENGTH_SHORT).show();

@@ -94,7 +94,7 @@ public class RecyclerViewAdapter1 extends RecyclerView.Adapter<RecyclerViewAdapt
                                                             String currentTime = sdftime.format(new Date());
                                                             String CurrentDate = sdfdate.format(new Date());
                                                             FirebaseDatabase.getInstance().getReference("History").child(CurrentDate).child(currentTime)
-                                                                    .setValue("Removed Book: "+ UploadInfo.getPar());
+                                                                    .setValue("Removed Book: "+ UploadInfo.getPar() + " by " + UploadInfo.getUser());
                                                         }
                                                         else {
                                                             FirebaseDatabase.getInstance().getReference("Book").child(UploadInfo.getPar()).child("quan").setValue(String.valueOf(tempC - 1));
@@ -105,7 +105,7 @@ public class RecyclerViewAdapter1 extends RecyclerView.Adapter<RecyclerViewAdapt
                                                             String currentTime = sdftime.format(new Date());
                                                             String CurrentDate = sdfdate.format(new Date());
                                                             FirebaseDatabase.getInstance().getReference("History").child(CurrentDate).child(currentTime)
-                                                                    .setValue("Removed ID: "+ UploadInfo.getId() + "of Book: "+UploadInfo.getPar());
+                                                                    .setValue("Removed ID: "+ UploadInfo.getId() + " of Book: "+UploadInfo.getPar() + " by " + UploadInfo.getUser());
                                                         }
                                                     }
                                                 }

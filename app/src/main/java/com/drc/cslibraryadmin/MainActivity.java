@@ -37,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
         String currentDateandTime = sdf.format(new Date());
         Toast.makeText(MainActivity.this,String.valueOf(currentDateandTime),Toast.LENGTH_LONG).show();*/
 
+
+
+
         initializeLibItemList();
 
         // Create the recyclerview.

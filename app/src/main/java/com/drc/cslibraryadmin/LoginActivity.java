@@ -1,6 +1,7 @@
 package com.drc.cslibraryadmin;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -17,6 +18,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference ref,id_ref;
     Button log;
+    String gname;
     public List<String> unamelist = new ArrayList<>();
     ProgressDialog progressDialog;
     @Override
@@ -38,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         database = FirebaseDatabase.getInstance();
+
 
 
 
@@ -66,12 +74,41 @@ public class LoginActivity extends AppCompatActivity {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             if (dataSnapshot.hasChild(userName)) {
                                 String rpass = dataSnapshot.child(userName).child("pass").getValue(String.class);
+                                String name = dataSnapshot.child(userName).child("name").getValue(String.class);
                                 if (passU.equals(rpass)) {
-                                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                                    startActivity(i);
+                                    try {
+                                        FileOutputStream fstream;
+                                        fstream = openFileOutput("user_details", Context.MODE_PRIVATE);
+                                        fstream.write(name.getBytes());
+                                        fstream.close();
+                                        Toast.makeText(getApplicationContext(), "Details Saved Successfully",Toast.LENGTH_SHORT).show();
+                                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(i);
+                                        finish();
+                                    } catch (FileNotFoundException e) {
+                                        e.printStackTrace();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
 
-                                    // close this activity
-                                    finish();
+                                   /* try {
+                                        FileInputStream fstream;
+                                        fstream = openFileInput("user_details");
+                                        StringBuffer sbuffer = new StringBuffer();
+                                        int i;
+                                        while ((i = fstream.read())!= -1){
+                                            sbuffer.append((char)i);
+                                        }
+                                        fstream.close();
+                                        String details[] = sbuffer.toString().split("\n");
+                                        Toast.makeText(LoginActivity.this,
+                                                "Name: "+ details[0], Toast.LENGTH_SHORT).show();
+                                    } catch (FileNotFoundException e) {
+                                        e.printStackTrace();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+*/
                                 } else {
                                     Toast.makeText(getApplicationContext(), "Invalid Password", Toast.LENGTH_SHORT).show();
                                     progressDialog.dismiss();
@@ -83,7 +120,9 @@ public class LoginActivity extends AppCompatActivity {
 
                             }
 
+                            progressDialog.dismiss();
                         }
+
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {

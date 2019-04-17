@@ -80,7 +80,7 @@ public class RecyclerViewAdapterStudList extends RecyclerView.Adapter<RecyclerVi
                                 String currentTime = sdftime.format(new Date());
                                 String CurrentDate = sdfdate.format(new Date());
                                 FirebaseDatabase.getInstance().getReference("History").child(CurrentDate).child(currentTime)
-                                        .setValue("Deleted Student: "+ holder.Name.getText().toString() +" with Reg ID: "+holder.reg.getText().toString() );
+                                        .setValue("Deleted Student: "+ holder.Name.getText().toString() +" with Reg ID: "+holder.reg.getText().toString() + " by " + UploadInfo.getUser());
 
                                 FirebaseDatabase.getInstance().getReference().child("Stud").child(UploadInfo.getReg()).removeValue();
                                 Toast.makeText(context,"Student Removed",Toast.LENGTH_SHORT).show();

@@ -3,10 +3,14 @@ package com.drc.cslibraryadmin;
 public class NewBook {
     private String name;
     private String author;
-    private String quan,avail;
+    private String quan,avail,user;
 
     public NewBook() {
     }
+
+    public String getUser() { return user; }
+
+    public void setUser(String user) { this.user = user; }
 
     public String getAvail() {
         return avail;
@@ -24,11 +28,12 @@ public class NewBook {
         this.quan = quan;
     }
 
-    public NewBook(String name, String author, String quan, String avail) {
+    public NewBook(String name, String author, String quan, String avail, String user) {
         this.name = name;
         this.author = author;
         this.quan = quan;
         this.avail = avail;
+        this.user = user;
     }
 
 

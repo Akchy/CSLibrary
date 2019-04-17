@@ -17,6 +17,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +36,7 @@ public class Setting extends AppCompatActivity {
     DatabaseReference ref,ref1,refs;
     EditText fine1,booknos;
     String f;
-    String nos;
+    String nos, details[];
     int num,setnum,x=0,flag=0,x1=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,13 +131,32 @@ public class Setting extends AppCompatActivity {
     {
         String fine = fine1.getText().toString();
         if(fine.length()!=0) {
+
+
+            try {
+                FileInputStream fstream;
+                fstream = openFileInput("user_details");
+                StringBuffer sbuffer = new StringBuffer();
+                int i;
+                while ((i = fstream.read())!= -1){
+                    sbuffer.append((char)i);
+                }
+                details = sbuffer.toString().split("\n");
+                fstream.close();
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             ref.child("fine").setValue(fine);
             SimpleDateFormat sdftime = new SimpleDateFormat("HH:mm:ss");
             SimpleDateFormat sdfdate = new SimpleDateFormat("dd-MM-yyyy");
             String currentTime = sdftime.format(new Date());
             String CurrentDate = sdfdate.format(new Date());
             FirebaseDatabase.getInstance().getReference("History").child(CurrentDate).child(currentTime)
-                    .setValue("Change the fine to "+ fine );
+                    .setValue("Change the fine to "+ fine + " by " + details[0]);
             Toast.makeText(Setting.this,"Fine Changed",Toast.LENGTH_SHORT).show();
             x++;
 
@@ -199,13 +221,32 @@ public class Setting extends AppCompatActivity {
                             refs.child(postSnapshot.getKey()).child("avail").setValue(String.valueOf(av + setnum));
                             refs.child(postSnapshot.getKey()).child("count").setValue(nos);
                             if (nos.length() != 0) {
+
+                                try {
+                                    FileInputStream fstream;
+                                    fstream = openFileInput("user_details");
+                                    StringBuffer sbuffer = new StringBuffer();
+                                    int i;
+                                    while ((i = fstream.read())!= -1){
+                                        sbuffer.append((char)i);
+                                    }
+                                    details = sbuffer.toString().split("\n");
+                                    fstream.close();
+
+                                } catch (FileNotFoundException e) {
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+
                                 ref1.child("nos").setValue(nos);
                                 SimpleDateFormat sdftime = new SimpleDateFormat("HH:mm:ss");
                                 SimpleDateFormat sdfdate = new SimpleDateFormat("dd-MM-yyyy");
                                 String currentTime = sdftime.format(new Date());
                                 String CurrentDate = sdfdate.format(new Date());
                                 FirebaseDatabase.getInstance().getReference("History").child(CurrentDate).child(currentTime)
-                                        .setValue("Set the Book nos per student to "+nos );
+                                        .setValue("Set the Book nos per student to "+nos + " by " + details[0] );
                             }
                         }
                         else if(setnum<0){
@@ -215,13 +256,32 @@ public class Setting extends AppCompatActivity {
                                 refs.child(postSnapshot.getKey()).child("avail").setValue(String.valueOf(av + setnum));
                                 refs.child(postSnapshot.getKey()).child("count").setValue(String.valueOf(nos));
                                 if (nos.length() != 0) {
+
+                                    try {
+                                        FileInputStream fstream;
+                                        fstream = openFileInput("user_details");
+                                        StringBuffer sbuffer = new StringBuffer();
+                                        int i;
+                                        while ((i = fstream.read())!= -1){
+                                            sbuffer.append((char)i);
+                                        }
+                                        details = sbuffer.toString().split("\n");
+                                        fstream.close();
+
+                                    } catch (FileNotFoundException e) {
+                                        e.printStackTrace();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+
+
                                     ref1.child("nos").setValue(nos);
                                     SimpleDateFormat sdftime = new SimpleDateFormat("HH:mm:ss");
                                     SimpleDateFormat sdfdate = new SimpleDateFormat("dd-MM-yyyy");
                                     String currentTime = sdftime.format(new Date());
                                     String CurrentDate = sdfdate.format(new Date());
                                     FirebaseDatabase.getInstance().getReference("History").child(CurrentDate).child(currentTime)
-                                            .setValue("Set the Book nos per student to " + nos);
+                                            .setValue("Set the Book nos per student to " + nos + " by " +details[0]);
                                 }
                             }
                         }

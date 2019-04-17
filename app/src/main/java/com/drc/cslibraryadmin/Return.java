@@ -21,6 +21,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,7 +39,7 @@ public class Return extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference ref,ref1,refb;
     int x=0,check=0,x1;
-    String name,bookname,bookauthor,studname,studid;
+    String name,bookname,bookauthor,studname,studid, details[];
     int a,flag=0;
     int bookavail;
     TextView bn,ba,sn;
@@ -267,6 +270,22 @@ public class Return extends AppCompatActivity {
                             ref1.child(studid).child("avail").setValue(String.valueOf(bookavail+1));
                             FirebaseDatabase.getInstance().getReference("Book").child(name).child("avail").setValue(String.valueOf(a+1));
 
+                            try {
+                                FileInputStream fstream;
+                                fstream = openFileInput("user_details");
+                                StringBuffer sbuffer = new StringBuffer();
+                                int i;
+                                while ((i = fstream.read())!= -1){
+                                    sbuffer.append((char)i);
+                                }
+                                details = sbuffer.toString().split("\n");
+                                fstream.close();
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
                             //write the code here for compare dates
 
                             SimpleDateFormat sdftime = new SimpleDateFormat("HH:mm:ss");
@@ -275,7 +294,7 @@ public class Return extends AppCompatActivity {
                             String CurrentDate = sdfdate.format(new Date());
                             FirebaseDatabase.getInstance().getReference("ID").child(id).child("History").child(CurrentDate).child(currentTime)
                                     .setValue("Returned Book: "+ dataSnapshot.child(id).child("parent").getValue().toString() + " of ID: " +
-                                            id + " from Student ID: "+temp_id);
+                                            id + " from Student ID: "+temp_id + " by " + details[0]);
 
                             ref.child(id).child("return").setValue("Nill");
                             x++;

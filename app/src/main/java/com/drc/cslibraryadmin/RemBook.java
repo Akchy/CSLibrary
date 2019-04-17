@@ -14,6 +14,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +32,7 @@ public class RemBook extends AppCompatActivity {
     NewID newid=new NewID();
     TextView bookn,authorn;
 
-    String name,bookname,bookauthor;
+    String name,bookname,bookauthor,details[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,23 @@ public class RemBook extends AppCompatActivity {
         // Setting up message in Progress dialog.
         progressDialog.setMessage("Loading Data.\nConnect to your Internet");
 
+        try {
+            FileInputStream fstream;
+            fstream = openFileInput("user_details");
+            StringBuffer sbuffer = new StringBuffer();
+            int i;
+            while ((i = fstream.read())!= -1){
+                sbuffer.append((char)i);
+            }
+            fstream.close();
+            details = sbuffer.toString().split("\n");
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         // Showing progress dialog.
         progressDialog.show();
         // Adding Add Value Event Listener to databaseReference.
@@ -86,8 +106,10 @@ public class RemBook extends AppCompatActivity {
                             newid.setId(id);
                             newid.setPar(name);
                             newid.setDate(dt);
+                            newid.setUser(details[0]);
 
                             list.add(newid);
+                           // Toast.makeText(RemBook.this,id,Toast.LENGTH_SHORT).show();
                         }
                     }
                     catch (NullPointerException c){

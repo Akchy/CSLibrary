@@ -15,6 +15,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
@@ -27,7 +30,7 @@ public class AddStud extends AppCompatActivity {
     DatabaseReference ref,ref1;
     NewStud user;
     int x=1;
-    String bookavail;
+    String bookavail,details[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,12 +110,31 @@ public class AddStud extends AppCompatActivity {
                         getValues();
                         ref.child(reg.getText().toString()).setValue(user);
                         x++;
+
+
+                        try {
+                            FileInputStream fstream;
+                            fstream = openFileInput("user_details");
+                            StringBuffer sbuffer = new StringBuffer();
+                            int i;
+                            while ((i = fstream.read())!= -1){
+                                sbuffer.append((char)i);
+                            }
+                            details = sbuffer.toString().split("\n");
+                            fstream.close();
+
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         SimpleDateFormat sdftime = new SimpleDateFormat("HH:mm:ss");
                         SimpleDateFormat sdfdate = new SimpleDateFormat("dd-MM-yyyy");
                         String currentTime = sdftime.format(new Date());
                         String CurrentDate = sdfdate.format(new Date());
                         FirebaseDatabase.getInstance().getReference("History").child(CurrentDate).child(currentTime)
-                                .setValue("Added Student: "+ name.getText().toString() +" with Reg ID: "+reg.getText().toString() );
+                                .setValue("Added Student: "+ name.getText().toString() +" with Reg ID: "+reg.getText().toString()
+                                        + "by " + details[0]);
 
                         Toast.makeText(AddStud.this, "Student Added", Toast.LENGTH_SHORT).show();
                     }

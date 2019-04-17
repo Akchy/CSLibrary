@@ -17,6 +17,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +36,7 @@ public class AddBook extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference ref,id_ref;
     NewBook user;
-    String id,nameofparent;
+    String id,nameofparent, details[];
     int x=1,flag=0,flag1=0;
 
 
@@ -122,13 +125,33 @@ public class AddBook extends AppCompatActivity {
 
                                 // Book adding part
                                 if (j == Integer.parseInt(quan.getText().toString())) {
+
+                                    try {
+                                        FileInputStream fstream;
+                                        fstream = openFileInput("user_details");
+                                        StringBuffer sbuffer = new StringBuffer();
+                                        int i;
+                                        while ((i = fstream.read())!= -1){
+                                            sbuffer.append((char)i);
+                                        }
+                                        details = sbuffer.toString().split("\n");
+                                        fstream.close();
+
+                                    } catch (FileNotFoundException e) {
+                                        e.printStackTrace();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+
+
                                     ref.child(nameofparent).setValue(user);
                                     SimpleDateFormat sdftime = new SimpleDateFormat("HH:mm:ss");
                                     SimpleDateFormat sdfdate = new SimpleDateFormat("dd-MM-yyyy");
                                     String currentTime = sdftime.format(new Date());
                                     String CurrentDate = sdfdate.format(new Date());
                                     FirebaseDatabase.getInstance().getReference("History").child(CurrentDate).child(currentTime)
-                                            .setValue("Added Book: "+ nameofparent +" of ID: "+ Arrays.toString(currencies));
+                                            .setValue("Added Book: "+ nameofparent +" of ID: "+ Arrays.toString(currencies)
+                                            + " by "+ details[0]);
                                     for (int i = 0; i < Integer.parseInt(quan.getText().toString()); i++) {
                                         ref.child(nameofparent).child("IDs").child(String.valueOf(i)).setValue(currencies[i]);
                                         id_ref.child(currencies[i]).child("key").setValue(String.valueOf(i));

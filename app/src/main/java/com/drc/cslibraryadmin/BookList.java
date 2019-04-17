@@ -20,6 +20,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +41,7 @@ public class BookList extends AppCompatActivity implements SearchView.OnQueryTex
     // Creating Progress dialog
     ProgressDialog progressDialog;
 
-
+    String details[];
 
     // Creating List of ImageUploadInfo class.
     public List<NewBook> list = new ArrayList<>();
@@ -82,6 +85,25 @@ public class BookList extends AppCompatActivity implements SearchView.OnQueryTex
         // Showing progress dialog.
         progressDialog.show();
 
+
+
+        try {
+            FileInputStream fstream;
+            fstream = openFileInput("user_details");
+            StringBuffer sbuffer = new StringBuffer();
+            int i;
+            while ((i = fstream.read())!= -1){
+                sbuffer.append((char)i);
+            }
+            fstream.close();
+            details = sbuffer.toString().split("\n");
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         // Setting up Firebase image upload folder path in databaseReference.
         // The path is already defined in MainActivity.
         databaseReference = FirebaseDatabase.getInstance().getReference("Book");
@@ -97,7 +119,7 @@ public class BookList extends AppCompatActivity implements SearchView.OnQueryTex
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
 
                     NewBook imageUploadInfo = postSnapshot.getValue(NewBook.class);
-
+                    imageUploadInfo.setUser(details[0]);
                     list.add(imageUploadInfo);
                 }
 
