@@ -15,7 +15,7 @@ public class AboutUs extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
-
+        setTitle("About Us");
       //  TextView t1 = (TextView)findViewById(R.id.dec1);
         String text = "The department of Computer Science & Engineering is the latest addition to the institution which in started "+
                 "the academic year 1999 - 2000. Identification of India as a potential source of computer professionals and keeping in "+
