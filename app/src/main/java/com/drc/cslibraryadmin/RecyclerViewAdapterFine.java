@@ -66,7 +66,7 @@ public class RecyclerViewAdapterFine extends RecyclerView.Adapter<RecyclerViewAd
                 .setTitle("Fine")
                 .setMessage("Settle the fine of "+ holder.StudName.getText().toString()
                         + "\nStudent ID: " +  UploadInfo.getSid()
-                + "\nAmount: " + holder.amt.getText().toString() + "/-")
+                + "\nAmount: " + holder.amt.getText().toString())
                 .setPositiveButton("Settle", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int whichButton) {
