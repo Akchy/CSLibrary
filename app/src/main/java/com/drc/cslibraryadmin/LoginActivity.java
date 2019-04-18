@@ -29,7 +29,7 @@ import java.util.List;
 public class LoginActivity extends AppCompatActivity {
     EditText uname,pass;
     FirebaseDatabase database;
-    DatabaseReference ref,id_ref;
+    DatabaseReference ref;
     Button log;
     String gname;
     public List<String> unamelist = new ArrayList<>();
@@ -43,12 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         pass=(EditText)findViewById(R.id.pass);
         log=(Button) findViewById(R.id.b2);
 
-
         database = FirebaseDatabase.getInstance();
-
-
-
-
 
         log.setOnClickListener(new View.OnClickListener() {
             @Override

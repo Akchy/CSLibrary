@@ -5,4 +5,83 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg"
-    tools:context="com.drc.cslibraryadmin.UserSettingsActivity"/>
+    android:orientation="vertical"
+    android:paddingTop="11dp"
+    android:clickable="true"
+    tools:context="com.drc.cslibraryadmin.UserSettingsActivity">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="25dp"
+        android:text="Add New User"
+        android:textColor="#212121"
+        android:id="@+id/addusr"
+        android:textSize="20sp"/>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height=".2dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_below="@+id/addusr"
+        android:id="@+id/v1"
+        android:background="#00838F"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="25dp"
+        android:text="Change Password"
+        android:textColor="#212121"
+        android:layout_below="@+id/v1"
+        android:id="@+id/changepass"
+        android:textSize="20sp"/>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height=".2dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_below="@+id/changepass"
+        android:id="@+id/v2"
+        android:background="#00838F"
+        />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="25dp"
+                android:text="Change Username"
+                android:textColor="#212121"
+                android:layout_below="@+id/v2"
+                android:id="@+id/changeusr"
+                android:textSize="20sp"/>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height=".2dp"
+                android:layout_marginHorizontal="15dp"
+                android:layout_below="@+id/changeusr"
+                android:background="#00838F"
+                android:id="@+id/v3"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="25dp"
+                android:text="Delete User"
+                android:textColor="#212121"
+                android:layout_below="@+id/v3"
+                android:id="@+id/delusr"
+                android:textSize="20sp"/>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height=".2dp"
+                android:layout_marginHorizontal="15dp"
+                android:layout_below="@+id/delusr"
+                android:background="#00838F"
+                android:id="@+id/v4"
+                />
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>
