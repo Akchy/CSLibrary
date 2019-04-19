@@ -151,7 +151,7 @@ public class UserSettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                
+
 
             }
         });
