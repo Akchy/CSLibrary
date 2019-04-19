@@ -336,8 +336,6 @@ public class Issue extends AppCompatActivity {
                                  }
                                  fstream.close();
                                   details = sbuffer.toString().split("\n");
-                                 Toast.makeText(Issue.this,
-                                         "Name: "+ details[0], Toast.LENGTH_SHORT).show();
                              } catch (FileNotFoundException e) {
                                  e.printStackTrace();
                              } catch (IOException e) {
@@ -348,11 +346,18 @@ public class Issue extends AppCompatActivity {
                              SimpleDateFormat sdfdate = new SimpleDateFormat("dd-MM-yyyy");
                              String currentTime = sdftime.format(new Date());
                              String CurrentDate = sdfdate.format(new Date());
+
+                             FirebaseDatabase.getInstance().getReference("FineList").child(studno.getText().toString()).child(id + " " + studno.getText().toString()).child("parent").setValue(dataSnapshot.child(id).child("parent").getValue().toString());
+                             FirebaseDatabase.getInstance().getReference("FineList").child(studno.getText().toString()).child(id + " " + studno.getText().toString()).child("sname").setValue(studname);
+                             FirebaseDatabase.getInstance().getReference("FineList").child(studno.getText().toString()).child(id + " " + studno.getText().toString()).child("sid").setValue(studno.getText().toString());
+                             FirebaseDatabase.getInstance().getReference("FineList").child(studno.getText().toString()).child(id + " " + studno.getText().toString()).child("bookid").setValue(id);
+                             FirebaseDatabase.getInstance().getReference("FineList").child(studno.getText().toString()).child(id + " " + studno.getText().toString()).child("amt").setValue("0");
+                             FirebaseDatabase.getInstance().getReference("FineList").child(studno.getText().toString()).child(id + " " + studno.getText().toString()).child("return").setValue(newDate);
                              FirebaseDatabase.getInstance().getReference("ID").child(id).child("History").child(CurrentDate).child(currentTime)
                                      .setValue("Issued Book: "+ dataSnapshot.child(id).child("parent").getValue().toString() + " of ID: " +
                                              id + " to Student ID: "+studno.getText().toString() + " by " + details[0]);
 
-                            ref1.child(studno.getText().toString()).child("due").setValue("1");
+
                             Toast.makeText(Issue.this,"Book Issued",Toast.LENGTH_SHORT).show();
                         } else if(!temp_id.equals("Nill"))
                             Toast.makeText(Issue.this, "Book Not Available", Toast.LENGTH_SHORT).show();

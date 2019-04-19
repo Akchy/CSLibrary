@@ -71,8 +71,6 @@ public class AddStud extends AppCompatActivity {
         user.setReg(reg.getText().toString());
         user.setAvail(bookavail);
         user.setCount(bookavail);
-        user.setAmount("0");
-        user.setDue("0");
 
     }
     public void bookavail(){

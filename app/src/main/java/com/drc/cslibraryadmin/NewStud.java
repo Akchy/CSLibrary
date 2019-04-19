@@ -1,31 +1,21 @@
 package com.drc.cslibraryadmin;
 
 public class NewStud {
-    private String name,avail,amount;
-    private String reg,count,due,user;
+    private String name,avail;
+    private String reg,count,user;
 
     public NewStud() {
     }
 
 
-    public NewStud(String name, String fees, String count,String avail,String amount,String due, String user){
+    public NewStud(String name, String fees, String count,String avail, String user){
         this.name = name;
         this.reg = fees;
         this.count=count;
         this.avail=avail;
-        this.amount=amount;
-        this.due=due;
         this.user = user;
     }
 
-
-    public String getDue() {
-        return due;
-    }
-
-    public void setDue(String due) {
-        this.due = due;
-    }
 
     public String getUser() {
         return user;
@@ -35,13 +25,6 @@ public class NewStud {
         this.user = user;
     }
 
-    public String getAmount() {
-        return amount;
-    }
-
-    public void setAmount(String amount) {
-        this.amount = amount;
-    }
 
     public String getAvail() {
         return avail;

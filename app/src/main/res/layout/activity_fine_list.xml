@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/stname"
+                android:layout_margin="15dp"
+                android:text="Name:"
+                android:textSize="20dp"
+                android:textColor="#000000"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/names"
+                android:layout_toRightOf="@+id/stname"
+                android:layout_margin="15dp"
+                android:textSize="20dp"
+                android:textColor="#000000"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/settle"
+                android:layout_alignParentRight="true"
+                android:text="Settle All"
+                android:textColor="#fff"
+                android:layout_margin="15dp"
+                android:onClick="SettleFine"
+                android:background="@drawable/buttonr"/>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="fill_parent"
+                android:layout_below="@+id/settle"
+                android:layout_height="wrap_content"
+                android:id="@+id/recyclerView"
+                android:layout_alignParentLeft="true">
+
+            </android.support.v7.widget.RecyclerView>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

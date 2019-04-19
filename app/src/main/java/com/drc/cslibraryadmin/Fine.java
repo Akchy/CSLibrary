@@ -25,13 +25,13 @@ import java.util.Locale;
 public class Fine extends AppCompatActivity {
 
 
-    DatabaseReference databaseReference,refs,ref_fine;
+    DatabaseReference refs,ref_fine,ref_fine_list;
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter ;
     ProgressDialog progressDialog;
-    String retdate,ret,par;
+    String retdate,studname;
     Date c,newc;
-    int diff,amount,sum,amt,x=0,x1=1,due;
+    int diff,amount,sum,amt,x=0,x1=1,due,fine;
     List<NewFine> list  = new ArrayList<>();
     TextView fintext;
 
@@ -51,31 +51,62 @@ public class Fine extends AppCompatActivity {
         progressDialog = new ProgressDialog(Fine.this);
         progressDialog.setMessage("Loading Data.\nConnect to your Internet");
         progressDialog.show();
-        databaseReference = FirebaseDatabase.getInstance().getReference("ID");
         refs =FirebaseDatabase.getInstance().getReference("Stud");
         ref_fine=FirebaseDatabase.getInstance().getReference("Fine");
+        ref_fine_list=FirebaseDatabase.getInstance().getReference("FineList");
         fintext = (TextView)findViewById(R.id.fintext);
         // fineamount();
 
 
 
 
-        ref_fine.addListenerForSingleValueEvent(new ValueEventListener() {
+        ref_fine.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 amount=Integer.parseInt(dataSnapshot.child("fine").getValue().toString());
-    //    Toast.makeText(Fine.this,"2",Toast.LENGTH_SHORT).show();
 
-        refs.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(final DataSnapshot dataSnapshot) {
+
+            ref_fine_list.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
                 if(x==0) {
-                    x=1;
-                    for (final DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        x1=0;
-                        list = new ArrayList<>();
-                        due = Integer.parseInt(postSnapshot.child("due").getValue().toString());
-                        if(due!=0) {
+                    list = new ArrayList<>();
+
+                    for (final DataSnapshot postSnapshotouter : dataSnapshot.getChildren()) {        //list of student id
+
+                        fine=0;
+                        for (final DataSnapshot postSnapshot : postSnapshotouter.getChildren()) {       //list of bookid and student id
+                            retdate = postSnapshot.child("return").getValue().toString();
+                            studname = postSnapshot.child("sname").getValue().toString();
+                           // Toast.makeText(Fine.this, postSnapshot.getKey(), Toast.LENGTH_SHORT).show();
+                            noofdays();
+                            if (diff > 0) {
+                                //Toast.makeText(Fine.this, postSnapshot.child("return").getValue().toString(), Toast.LENGTH_SHORT).show();
+                                amt = Integer.parseInt(postSnapshot.child("amt").getValue().toString());
+                                fine = fine + (amount * diff);
+
+                                FirebaseDatabase.getInstance().getReference("FineList").child(postSnapshotouter.getKey()).child(postSnapshot.getKey())
+                                        .child("amt").setValue(String.valueOf(fine));
+                                //  Toast.makeText(Fine.this, String.valueOf(sum), Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+
+                        NewFine imageUploadInfo = new NewFine();
+                        imageUploadInfo.setName(studname);
+                        imageUploadInfo.setAmt(String.valueOf(fine));
+                        imageUploadInfo.setSid(postSnapshotouter.getKey());
+                        //  Toast.makeText(Fine.this,"a",Toast.LENGTH_SHORT).show();
+                        if(fine!=0)
+                        list.add(imageUploadInfo);
+                        progressDialog.dismiss();
+                    }
+                    x++;
+
+
+
+
+                        /*  if(due!=0) {
                             databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot snapshot) {
@@ -109,7 +140,7 @@ public class Fine extends AppCompatActivity {
                                         NewFine imageUploadInfo = new NewFine();
                                         imageUploadInfo.setName(postSnapshot.child("name").getValue().toString());
                                         imageUploadInfo.setAmt(postSnapshot.child("amount").getValue().toString());
-                                        imageUploadInfo.setSid(postSnapshot.getKey().toString());
+                                        imageUploadInfo.setSid(postSnapshot.getKey());
                                         //  Toast.makeText(Fine.this,"a",Toast.LENGTH_SHORT).show();
                                         if (Integer.parseInt(postSnapshot.child("amount").getValue().toString()) != 0)
                                             list.add(imageUploadInfo);
@@ -136,12 +167,14 @@ public class Fine extends AppCompatActivity {
                                 }
                             });
                         }
+
+                        */
 //11111111111
 
 
                             //Toast.makeText(Fine.this,"1",Toast.LENGTH_SHORT).show();
-                    }
-                    x++;
+
+
                 }
                 refs.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -163,8 +196,10 @@ public class Fine extends AppCompatActivity {
                 });
 
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
+
             }
         });
             }
@@ -174,6 +209,7 @@ public class Fine extends AppCompatActivity {
 
             }
         });
+
 
 
 
