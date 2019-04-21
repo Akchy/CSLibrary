@@ -47,7 +47,7 @@ public class RecyclerViewAdapterFineList extends RecyclerView.Adapter<RecyclerVi
         final NewFine UploadInfo = MainImageUploadInfoList.get(position);
 
 
-        holder.StudName.setText(UploadInfo.getName());
+        holder.StudName.setText(UploadInfo.getBname());
 
 
         holder.amt.setText(UploadInfo.getAmt() + "/-");

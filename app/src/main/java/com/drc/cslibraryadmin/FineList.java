@@ -18,6 +18,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,7 +36,7 @@ public class FineList extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter ;
     ProgressDialog progressDialog;
-    String retdate,stname,bname,rdate,sid;
+    String retdate,stname,bname,rdate,sid,details[];
     Date c,newc;
     int diff,amount,amt,x=0,fine;
     List<NewFine> list  = new ArrayList<>();
@@ -50,6 +53,23 @@ public class FineList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setTitle("Fine");
 
+
+        try {
+            FileInputStream fstream;
+            fstream = openFileInput("user_details");
+            StringBuffer sbuffer = new StringBuffer();
+            int i;
+            while ((i = fstream.read())!= -1){
+                sbuffer.append((char)i);
+            }
+            details = sbuffer.toString().split("\n");
+            fstream.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Bundle bundle = getIntent().getExtras();
         studnetname = bundle.getString("name");
@@ -193,6 +213,30 @@ public class FineList extends AppCompatActivity {
 
                     public void onClick(DialogInterface dialog, int whichButton) {
                         FirebaseDatabase.getInstance().getReference("FineList").child(stname).removeValue();
+                        try {
+                            FileInputStream fstream;
+                            fstream = openFileInput("user_details");
+                            StringBuffer sbuffer = new StringBuffer();
+                            int i;
+                            while ((i = fstream.read())!= -1){
+                                sbuffer.append((char)i);
+                            }
+                            details = sbuffer.toString().split("\n");
+                            fstream.close();
+
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        SimpleDateFormat sdftime = new SimpleDateFormat("HH:mm:ss");
+                        SimpleDateFormat sdfdate = new SimpleDateFormat("dd-MM-yyyy");
+                        String currentTime = sdftime.format(new Date());
+                        String CurrentDate = sdfdate.format(new Date());
+                        FirebaseDatabase.getInstance().getReference("History").child(CurrentDate).child(currentTime)
+                                .setValue("Student: "+ stname +" with Reg ID: "+sid + " paid fine " + fine
+                                        +" collected by " + details[0]);
+
                         dialog.dismiss();
                         Context context = view.getContext();
                         Intent intent = new Intent(context, Fine.class);
@@ -239,4 +283,6 @@ public class FineList extends AppCompatActivity {
         //Toast.makeText(Fine.this,String.valueOf((int)daysBetween),Toast.LENGTH_SHORT).show();
 
     }
+
+
 }

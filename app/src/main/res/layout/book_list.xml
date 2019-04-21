@@ -5,46 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/duname"
+    <TextView
+        android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="25dp"
         android:layout_marginVertical="10dp"
-        android:hint="Username"
+        android:textSize="18dp"
+        android:textColor="#000"
+        android:padding="10dp" />
+
+    <EditText
+        android:id="@+id/count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginVertical="10dp"
+        android:hint="Enter No. Of Copies"
         android:padding="10dp"
         android:singleLine="true" />
 
     <EditText
-        android:id="@+id/dname"
+        android:id="@+id/ID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="25dp"
         android:layout_marginVertical="10dp"
-        android:hint="Name"
-        android:padding="10dp"
-        android:singleLine="true" />
-
-    <EditText
-        android:id="@+id/dpass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="25dp"
-        android:layout_marginVertical="10dp"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:padding="10dp"
-        android:singleLine="true" />
-
-
-    <EditText
-        android:id="@+id/dpass1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="25dp"
-        android:layout_marginVertical="10dp"
-        android:hint="Confirm Password"
-        android:inputType="textPassword"
+        android:hint="Enter ID's with space"
         android:padding="10dp"
         android:singleLine="true" />
 

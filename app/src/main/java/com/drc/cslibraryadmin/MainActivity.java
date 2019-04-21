@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,11 +29,37 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference ref_fine,book_nos;
     int amount,nos;
     private List<LibRecyclerViewItem> libItemList = null;
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        File file = new File(getApplicationContext().getFilesDir(),"user_details");
+        if(!file.exists()){
+            Intent i = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(i);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        File file = new File(getApplicationContext().getFilesDir(),"user_details");
+        if(!file.exists()){
+            Intent i = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(i);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        File file = new File(getApplicationContext().getFilesDir(),"user_details");
+        if(!file.exists()){
+            Intent i = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(i);
+        }
         /*SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         String currentDateandTime = sdf.format(new Date());
         Toast.makeText(MainActivity.this,String.valueOf(currentDateandTime),Toast.LENGTH_LONG).show();*/

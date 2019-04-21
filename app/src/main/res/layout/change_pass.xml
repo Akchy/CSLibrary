@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/duname"
+        android:id="@+id/uname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="25dp"
@@ -15,35 +15,26 @@
         android:padding="10dp"
         android:singleLine="true" />
 
-    <EditText
-        android:id="@+id/dname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="25dp"
-        android:layout_marginVertical="10dp"
-        android:hint="Name"
-        android:padding="10dp"
-        android:singleLine="true" />
 
     <EditText
-        android:id="@+id/dpass"
+        android:id="@+id/old_pass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="25dp"
         android:layout_marginVertical="10dp"
-        android:hint="Password"
+        android:hint="Existing Password"
         android:inputType="textPassword"
         android:padding="10dp"
         android:singleLine="true" />
 
 
     <EditText
-        android:id="@+id/dpass1"
+        android:id="@+id/new_pass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="25dp"
         android:layout_marginVertical="10dp"
-        android:hint="Confirm Password"
+        android:hint="New Password"
         android:inputType="textPassword"
         android:padding="10dp"
         android:singleLine="true" />

@@ -2,6 +2,7 @@ package com.drc.cslibraryadmin;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -43,6 +44,8 @@ public class RecyclerViewAdapter3 extends RecyclerView.Adapter<RecyclerViewAdapt
     Context context;
     List<NewBook> MainImageUploadInfoList;
     DatabaseReference databaseReference,refb;
+    DatabaseReference ref;
+    ProgressDialog progressDialog;
     int value;
 
     String id,ids;
@@ -112,7 +115,7 @@ public class RecyclerViewAdapter3 extends RecyclerView.Adapter<RecyclerViewAdapt
             @Override
             public void onClick(View view) {
                 once=0;
-              tot = new
+                tot = new
                         StringBuilder("");
                 all_id = new
                 StringBuilder("");
@@ -128,7 +131,7 @@ public class RecyclerViewAdapter3 extends RecyclerView.Adapter<RecyclerViewAdapt
 
                         for (DataSnapshot postSnapshot : snapshot.getChildren()) {
 
-                            Toast.makeText(context,postSnapshot.toString(),Toast.LENGTH_SHORT).show();
+                         //   Toast.makeText(context,postSnapshot.toString(),Toast.LENGTH_SHORT).show();
                             value = Integer.parseInt(postSnapshot.getKey());
                         }
 
@@ -142,21 +145,15 @@ public class RecyclerViewAdapter3 extends RecyclerView.Adapter<RecyclerViewAdapt
 
                     }
                 });
-
-
-
-               //asasaas
-
-
-              id_ref =FirebaseDatabase.getInstance().getReference("ID");
+                id_ref =FirebaseDatabase.getInstance().getReference("ID");
                 id_ref.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         flag=0;
 
 
-
                         if (once < 1) {
+
                             x = 0;
                             for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
@@ -170,62 +167,80 @@ public class RecyclerViewAdapter3 extends RecyclerView.Adapter<RecyclerViewAdapt
                                 all_id.append(" ");
                             }
 
-
-                            AlertDialog.Builder alert = new AlertDialog.Builder(context)
-                                    .setMessage("Name: " + holder.Name.getText().toString() + "\nAuthor: " + holder.fees.getText().toString()
-                                            + "\nIDs: " + tot);
-                            alert.setTitle("Add New Book");
-
-                            LinearLayout layout = new LinearLayout(context);
-                            layout.setOrientation(LinearLayout.VERTICAL);
-
-                            final EditText count = new EditText(context);
-                            count.setHint("Enter the no. of copies");
-                            count.setInputType(InputType.TYPE_CLASS_NUMBER);
-                            layout.addView(count);
-
-                            final EditText ID = new EditText(context);
-                            ID.setHint("Enter the ID's with spaces");
-                            layout.addView(ID);
+                        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(context);
+                        builder.setTitle("Add New Book");
+                        View viewInflated = LayoutInflater.from(context).inflate(R.layout.book_list, null);
+                        builder.setView(viewInflated);
 
 
-                            alert.setView(layout);
+                        final EditText Count = (EditText) viewInflated.findViewById(R.id.count);
+                        final EditText iD = (EditText) viewInflated.findViewById(R.id.ID);
+                        final TextView text = (TextView) viewInflated.findViewById(R.id.text);
 
-                            alert.setPositiveButton("Save", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int whichButton) {
-                                    id = ID.getText().toString();
-                                    try {
-                                        c = Integer.parseInt(count.getText().toString());
-                                        arrOfStr = id.split(" ");
-                                        String temp = all_id.toString();
-                                        all = temp.split(" ");
-                                        len= all.length;
-                                    }
-                                    catch (NumberFormatException e){
+                        text.setText("Name: " + holder.Name.getText().toString() + "\nAuthor: " + holder.fees.getText().toString()
+                                + "\nIDs: " + tot);
+
+                        builder.setCancelable(false)
+                                .setPositiveButton("Add",new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
 
                                     }
+                                })
+                                .setNegativeButton("Cancel",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.cancel();
+                                            }
+                                        });
+
+                        // create an alert dialog
+                        android.support.v7.app.AlertDialog dialog = builder.create();
+                        dialog.show();
+
+                        dialog.getButton(android.support.v7.app.AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(View v)
+                            {
+
+
+                                String count=Count.getText().toString();
+                                String id=iD.getText().toString();
+
+
+                                if(count.isEmpty() || id.isEmpty()){
+                                    Toast.makeText(context,"These Fields cannot be empty",Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+
+
+                                    c = Integer.parseInt(count);
+                                    arrOfStr = id.split(" ");
+                                    String temp = all_id.toString();
+                                    all = temp.split(" ");
+                                    len = all.length;
+
                                     for (int i = 0; i < c; i++) {
-                                        for (int j = 0; j <len; j++) {
+                                        for (int j = 0; j < len; j++) {
                                             try {
                                                 if (arrOfStr[i].equals(all[j])) {
                                                     Toast.makeText(context, "ID Already Exist", Toast.LENGTH_SHORT).show();
                                                     flag = 1;
                                                 }
-                                            }
-                                            catch (ArrayIndexOutOfBoundsException c){
+                                            } catch (ArrayIndexOutOfBoundsException c) {
 
                                             }
 
                                         }
                                     }
-                                    if(ID.length()==0||count.length()==0)
-                                        flag=1;
+                                    if (id.length() == 0 || count.length() == 0)
+                                        flag = 1;
 
                                     if (flag != 1) {
                                         exist_count = Integer.parseInt(UploadInfo.getQuan());
                                         FirebaseDatabase.getInstance().getReference("Book").child(holder.Name.getText().toString() + " by " + holder.fees.getText().toString()).child("quan").setValue(String.valueOf(exist_count + c));
                                         FirebaseDatabase.getInstance().getReference("Book").child(holder.Name.getText().toString() + " by " + holder.fees.getText().toString()).child("avail").setValue(String.valueOf(exist_count + c));
-                                        for (int i = 0, j = value+1; i < c; i++, j++) {
+                                        for (int i = 0, j = value + 1; i < c; i++, j++) {
                                             FirebaseDatabase.getInstance().getReference("Book").child(holder.Name.getText().toString() + " by " + holder.fees.getText().toString()).child("IDs").child(String.valueOf(j)).setValue(arrOfStr[i]);
                                             FirebaseDatabase.getInstance().getReference("ID").child(arrOfStr[i]).child("parent").setValue(holder.Name.getText().toString() + " by " + holder.fees.getText().toString());
                                             FirebaseDatabase.getInstance().getReference("ID").child(arrOfStr[i]).child("return").setValue("Nill");
@@ -239,53 +254,24 @@ public class RecyclerViewAdapter3 extends RecyclerView.Adapter<RecyclerViewAdapt
                                         String currentTime = sdftime.format(new Date());
                                         String CurrentDate = sdfdate.format(new Date());
                                         FirebaseDatabase.getInstance().getReference("History").child(CurrentDate).child(currentTime)
-                                                .setValue("Added ID: "+ Arrays.toString(arrOfStr) +" of Book: "+holder.Name.getText().toString()
-                                                 + " by " + UploadInfo.getUser());
+                                                .setValue("Added ID: " + Arrays.toString(arrOfStr) + " of Book: " + holder.Name.getText().toString()
+                                                        + " by " + UploadInfo.getUser());
                                         Toast.makeText(context, "Saved Sucessfully", Toast.LENGTH_SHORT).show();
 
                                     }
-
-
-
-                                    //  Toast.makeText(context, Arrays.toString(arrOfStr), Toast.LENGTH_SHORT).show();
-
                                 }
-                            });
-
-                            alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int whichButton) {
-                                    // what ever you want to do with No option.
-                                }
-                            });
 
 
-                            final AlertDialog dialog = alert.create();
 
-                            dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                                @Override
-                                public void onShow(DialogInterface arg0) {
-                                    dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(BLUE);
-                                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(BLUE);
-                                }
-                            });
-                            dialog.show();
-
-
-                            //               Toast.makeText(context,"2",Toast.LENGTH_SHORT).show();
+                            }
+                        });
                         once++;
-
-
-                        }
+                       }
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                     }
                 });
-
-
-
-
-
             }
         });
 

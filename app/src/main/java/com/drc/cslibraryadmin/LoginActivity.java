@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                                         fstream = openFileOutput("user_details", Context.MODE_PRIVATE);
                                         fstream.write(name.getBytes());
                                         fstream.close();
-                                        Toast.makeText(getApplicationContext(), "Details Saved Successfully",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), "Welcome " + name,Toast.LENGTH_SHORT).show();
                                         Intent i = new Intent(LoginActivity.this, MainActivity.class);
                                         startActivity(i);
                                         finish();

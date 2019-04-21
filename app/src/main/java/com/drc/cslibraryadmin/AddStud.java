@@ -132,7 +132,7 @@ public class AddStud extends AppCompatActivity {
                         String CurrentDate = sdfdate.format(new Date());
                         FirebaseDatabase.getInstance().getReference("History").child(CurrentDate).child(currentTime)
                                 .setValue("Added Student: "+ name.getText().toString() +" with Reg ID: "+reg.getText().toString()
-                                        + "by " + details[0]);
+                                        + " by " + details[0]);
 
                         Toast.makeText(AddStud.this, "Student Added", Toast.LENGTH_SHORT).show();
                     }
