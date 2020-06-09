@@ -99,6 +99,7 @@ public class GenHistory extends AppCompatActivity {
                 int mMonth = c.get(Calendar.MONTH); // current month
                 int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
                 // date picker dialog
+
                 datePickerDialog = new DatePickerDialog(GenHistory.this,
                         new DatePickerDialog.OnDateSetListener() {
 
